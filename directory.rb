@@ -1,7 +1,7 @@
 
 # Let's put all the students into an [array]
-students = [
-  "Dr. Hannibal Lecter",
+students = [                              # This is still a variable
+  "Dr. Hannibal Lecter",                  # even though it's an array
   "Darth Vader",
   "Nurse Ratched",
   "Michael Corleone",
@@ -13,11 +13,22 @@ students = [
   "Joffrey Baratheon",
   "Norman Bates"
 ]
-# and then print them
+
+def print_header
 puts "The students of Villains Academy"
 puts "-------------"
-students.each do |student|      # For each iteration of the array 'students'
-  puts student                  # it is assigned to the variable |student|
-end                             # and the code between do-end is executed.
-# Finally, we print the total
-puts "Overall, we have #{students.count} great students"
+end
+
+def print(names)                  # We can now call this method and pass in 'students' array
+  names.each do |name|            # For each iteration of the array 'students'
+    puts name                     # it is assigned to the variable |student|
+  end                             # and the code between do-end is executed.
+end   #also end method
+
+def print_footer(names)
+  puts "Overall, we have #{names.count} great students"
+end
+# Nothing happens yet, until we call the methods!!!
+print_header
+print(students)
+print_footer(students)
