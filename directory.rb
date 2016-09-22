@@ -9,7 +9,11 @@ def input_students
   while !name.empty? do
     # Add the student hash to the array
     students << {name: name, cohort: :november}
-    puts "Now we have  #{students.count} students"
+    if students.count == 1
+      puts "Now we have #{students.count} student"
+    else
+      puts "Now we have #{students.count} students"
+    end
     # Get another name from the user
     name = gets.chomp
   end
@@ -18,13 +22,16 @@ def input_students
 end
 
 def print_header
-puts "The students of Villains Academy"
+puts "The students of Villains Academy - beginning with 'D'"
 puts "-------------"
 end
 
-def print(students)
+def print(students, first_letter)
   students.each_with_index{|student, index|
-    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)" }
+    if student[:name].slice(0).downcase == first_letter.downcase # Slice is taking the 0/First character of the name hash per student.
+      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end
+  }
 end
 
 def print_footer(names)
@@ -34,5 +41,5 @@ end
 students = input_students
 # Nothing happens yet, until we call the methods!!!
 print_header
-print(students)
+print(students, "D")
 print_footer(students)
