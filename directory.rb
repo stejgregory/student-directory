@@ -22,11 +22,10 @@ puts "The students of Villains Academy"
 puts "-------------"
 end
 
-def print(students)                  # We can now call this method and pass in 'students' array
-  students.each do |student|         # For each iteration of the array 'students'
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"     # it is assigned to the variable |student|
-  end                                               # and the code between do-end is executed.
-end   #also end method
+def print(students)
+  students.each_with_index{|student, index|
+    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)" }
+end
 
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
