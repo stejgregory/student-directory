@@ -1,4 +1,4 @@
-def input_students_details
+def input_students
   puts "Please enter the name of the first student you wish to add"
   puts "*** To finish, just hit return without typing a new students name ***"
   # Create an empty array
@@ -8,7 +8,7 @@ def input_students_details
   name = gets.chomp
   # While the name is not empty, repeat this code
   while !name.empty? do
-    puts "Which cohort 'month' will #{name} be enrolling with?"
+    puts "Which cohort 'Month' will #{name} be enrolling with?"
     month = gets.chomp
     puts "What is #{name}'s main hobby?"
     hobby = gets.chomp
@@ -16,6 +16,7 @@ def input_students_details
     country = gets.chomp
     puts "Last question, how tall is #{name} in centimetres?"
     height = gets.chomp
+
     # Add the student hash AND ALL THE VARIABLES to the array!!!
     students << {
       name: name,
@@ -23,13 +24,13 @@ def input_students_details
       hobby: hobby,
       country: country,
       height: height}
+
     if students.count == 1
       puts "Now we have #{students.count} student"
-      puts "*** Who's next? ***"
     else
       puts "Now we have #{students.count} students"
-      puts "*** Who's next? ***"
     end
+    puts "*** Who's next? ***"
     # Get another name from the user
     name = gets.chomp
   end
@@ -45,7 +46,13 @@ end
 def print(students)
   count = 0
   until count == students.length
-      puts "#{count+1}. #{students[count][:name]} / Cohort:#{students[count][:cohort]} / Hobby:#{students[count][:hobby]} / CountryOfBirth:#{students[count][:country]} / Height:#{students[count][:height]}"
+      count_and_name = "#{count+1}. #{students[count][:name]}"
+      cohort = "Cohort: #{students[count][:cohort]}"
+      hobby = "Hobby: #{students[count][:hobby]}"
+      country = "County of birth: #{students[count][:country]}"
+      height = "Height: #{students[count][:height]}"
+        puts count_and_name + cohort.center(20) + hobby.center(20) + country.center(20) + height.center(20)
+        puts
       count +=1         #[count] in each array iteration calls it from the main array
     end                 # We then ask for the specific part of the iteration.
 end
@@ -54,7 +61,7 @@ def print_footer(names)
   puts "Overall, we have #{names.count} great students"
 end
 
-students = input_students_details
+students = input_students
 # Nothing happens yet, until we call the methods!!!
 print_header
 print(students)
