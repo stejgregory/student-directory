@@ -22,13 +22,13 @@ def input_students
 end
 
 def print_header
-puts "The students of Villains Academy - beginning with 'D'"
+puts "The students of Villains Academy - with names shorter than 12 characters"
 puts "-------------"
 end
 
-def print(students, first_letter)
+def print(students)
   students.each_with_index{|student, index|
-    if student[:name].slice(0).downcase == first_letter.downcase # Slice is taking the 0/First character of the name hash per student.
+    if student[:name].length < 12               # .count didn't work here
       puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
     end
   }
@@ -41,5 +41,5 @@ end
 students = input_students
 # Nothing happens yet, until we call the methods!!!
 print_header
-print(students, "D")
+print(students)
 print_footer(students)
