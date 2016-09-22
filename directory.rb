@@ -1,29 +1,48 @@
 def input_students
-  puts "Please enter the name of the first student you wish to add"
+  puts "Please enter the name of the first student you wish to add into our database"
   puts "*** To finish, just hit return without typing a new students name ***"
   # Create an empty array
   students = []
 
   # Get the first students details
-  name = gets.chomp
+  name = gets.chomp.capitalize
   # While the name is not empty, repeat this code
   while !name.empty? do
-    puts "Which cohort 'Month' will #{name} be enrolling with?"
-    month = gets.chomp
+    puts "Which 'month' cohort will #{name} be enrolling on?"
+    cohort = gets.chomp.capitalize
+    until ["January", "February", "March",
+          "April", "May", "June", "July",
+          "August", "September", "October",
+          "November", "December"].include? cohort
+    puts "You entered #{cohort}. Please enter a valid month."
+    cohort = gets.chomp.capitalize
+    end
+
     puts "What is #{name}'s main hobby?"
-    hobby = gets.chomp
+    hobby = gets.chomp.capitalize
+    if hobby == ""
+      hobby = "Not provided"
+    end
+
     puts "What country was #{name} born in?"
-    country = gets.chomp
+    country = gets.chomp.capitalize
+    if country == ""
+      county = "Not Provided"
+    end
+
     puts "Last question, how tall is #{name} in centimetres?"
     height = gets.chomp
+    if height == ""
+      height = "Not provided"
+    end
 
     # Add the student hash AND ALL THE VARIABLES to the array!!!
     students << {
-      name: name,
-      cohort: month,
-      hobby: hobby,
-      country: country,
-      height: height}
+      name: name.to_sym,
+      cohort: cohort.to_sym,
+      hobby: hobby.to_sym,
+      country: country.to_sym,
+      height: height.to_sym}
 
     if students.count == 1
       puts "Now we have #{students.count} student"
@@ -37,6 +56,10 @@ def input_students
   # Return the array of the students
   students
 end
+
+#----------------------------ATTEMPTED A PROC------------------------
+
+#--------------------------------------------------------------------
 
 def print_header
 puts "The students of Villains Academy"
