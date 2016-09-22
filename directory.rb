@@ -22,16 +22,16 @@ def input_students
 end
 
 def print_header
-puts "The students of Villains Academy - with names shorter than 12 characters"
+puts "The students of Villains Academy"
 puts "-------------"
 end
 
 def print(students)
-  students.each_with_index{|student, index|
-    if student[:name].length < 12               # .count didn't work here
-      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
-    end
-  }
+  count = 0
+  until count == students.length
+      puts "#{count+1}. #{students[count][:name]} (#{students[count][:cohort]} cohort)"
+      count +=1         #[count] in each array iteration calls it from the main array
+    end                 # We then ask for the specific part of the iteration.
 end
 
 def print_footer(names)
