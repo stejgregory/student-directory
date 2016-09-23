@@ -13,6 +13,7 @@ def print_menu
   puts "--------------------------"
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit"   # Because we'll be adding more options
   puts ""
 end
@@ -24,11 +25,26 @@ def process(selection)
       input_students
     when "2"
       show_students
+    when "3"
+      save_students
     when "9"
       Exit # HERE THE PROGRAM WILL TERMINATE
     else
       puts " I don't know what you mean, try again"
   end
+end
+
+
+def save_students
+  # open the file for writing
+  file = File.open("students.csv", "w")
+  # iterate over the array of students
+  @students.each do |student|
+    student_data = [student[:name], student [:cohort]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  file.close
 end
 
 
@@ -42,11 +58,9 @@ end
 def input_students
   puts "Please enter the name of the first student you wish to add into our database"
   puts "*** To finish, just hit return without typing a new students name ***"
-
   # Get the first students details
   name = gets.chomp
   # While the name is not empty, repeat this code
-
   while !name.empty? do
     name2 = name.split.map(&:capitalize)*' '
     puts "Which 'month' cohort will #{name2} be enrolling on?"
@@ -59,25 +73,21 @@ def input_students
     puts "You entered '#{cohort}'. Please enter a valid month."
     cohort = gets.chomp.capitalize
     end
-
     puts "What is #{name2}'s main hobby?"
     hobby = gets.chomp.capitalize
     if hobby == ""
       hobby = "Not provided"
     end
-
     puts "What country was #{name2} born in?"
     country = gets.chomp.capitalize
     if country == ""
       county = "Not Provided"
     end
-
     puts "Last question, how tall is #{name2} in centimetres?"
     height = gets.chomp
     if height == ""
       height = "Not provided"
     end
-
     # Add the student hash AND ALL THE VARIABLES to the array!!!
     @students << {
       name: name2.to_sym,
@@ -85,7 +95,6 @@ def input_students
       hobby: hobby.to_sym,
       country: country.to_sym,
       height: height.to_sym}
-
     if @students.count == 1
       puts "Now we have #{@students.count} student"
     else
