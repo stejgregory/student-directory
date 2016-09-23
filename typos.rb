@@ -2,7 +2,7 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
   # create an empty array
-  students = {}
+  students = []
   # get the first name
   name = gets.chomp
   # while the name is not empty, repeat this code
@@ -24,12 +24,12 @@ end
 
 def print(students)
   students.each do |student|
-    puts "{student[:name]} (#{student[:cohort]} cohort)"
+    puts "#{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
 
 def print_footer(names)
-  print "Overall, we have #{names.count} great students"
+  puts "Overall, we have #{names.count} great students"
 end
 
 
