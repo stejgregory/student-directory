@@ -5,32 +5,34 @@ def input_students
   students = []
 
   # Get the first students details
-  name = gets.chomp.capitalize
+  name = gets.chomp
   # While the name is not empty, repeat this code
   while !name.empty? do
-    puts "Which 'month' cohort will #{name} be enrolling on?"
+    name2 = name.split.map(&:capitalize)*' '
+    puts "Which 'month' cohort will #{name2} be enrolling on?"
     cohort = gets.chomp.capitalize
-    until ["January", "February", "March",
-          "April", "May", "June", "July",
-          "August", "September", "October",
-          "November", "December"].include? cohort
+    @months = ["January", "February", "March",
+              "April", "May", "June", "July",
+              "August", "September", "October",
+              "November", "December"]
+    until @months.include? cohort
     puts "You entered #{cohort}. Please enter a valid month."
-    cohort = gets.chomp.capitalize
+    cohort = gets.chomp.capitalize!
     end
 
-    puts "What is #{name}'s main hobby?"
+    puts "What is #{name2}'s main hobby?"
     hobby = gets.chomp.capitalize
     if hobby == ""
       hobby = "Not provided"
     end
 
-    puts "What country was #{name} born in?"
+    puts "What country was #{name2} born in?"
     country = gets.chomp.capitalize
     if country == ""
       county = "Not Provided"
     end
 
-    puts "Last question, how tall is #{name} in centimetres?"
+    puts "Last question, how tall is #{name2} in centimetres?"
     height = gets.chomp
     if height == ""
       height = "Not provided"
@@ -38,7 +40,7 @@ def input_students
 
     # Add the student hash AND ALL THE VARIABLES to the array!!!
     students << {
-      name: name.to_sym,
+      name: name2.to_sym,
       cohort: cohort.to_sym,
       hobby: hobby.to_sym,
       country: country.to_sym,
@@ -57,14 +59,12 @@ def input_students
   students
 end
 
-#----------------------------ATTEMPTED A PROC------------------------
-
-#--------------------------------------------------------------------
 
 def print_header
 puts "The students of Villains Academy"
-puts "-------------"
+puts "--------------------------------"
 end
+
 
 def print(students)
   count = 0
@@ -74,18 +74,44 @@ def print(students)
       hobby = "Hobby: #{students[count][:hobby]}"
       country = "County of birth: #{students[count][:country]}"
       height = "Height: #{students[count][:height]}"
-        puts count_and_name + cohort.center(20) + hobby.center(20) + country.center(20) + height.center(20)
-        puts
+        puts count_and_name.center(30) + cohort.center(20) + hobby.center(20) + country.center(20) + height.center(20)
       count +=1         #[count] in each array iteration calls it from the main array
     end                 # We then ask for the specific part of the iteration.
 end
 
+
+def print_cohort(students)
+  @months.each do |month_to_list|
+    puts "#{month_to_list} cohort:"
+    puts "------------------------"
+    students.each do |students|
+      if students[:cohort].to_s == month_to_list
+          name = "#{students[:name]}"
+          cohort = "Cohort: #{students[:cohort]}"
+          hobby = "Hobby: #{students[:hobby]}"
+          country = "County of birth: #{students[:country]}"
+          height = "Height: #{students[:height]}"
+              puts name.center(30) + cohort.center(20) + hobby.center(20) + country.center(20) + height.center(20)
+      end
+    end
+    puts ""
+  end
+end
+
+
 def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
+  if names.count == 1
+    puts "Overall, we have #{names.count} great student"
+  elsif names.count > 1
+    puts "Overall, we have #{names.count} great students"
+  elsif names.count == 0
+    puts "No great students here"
+  end
 end
 
 students = input_students
 # Nothing happens yet, until we call the methods!!!
 print_header
 print(students)
+print_cohort(students)
 print_footer(students)
