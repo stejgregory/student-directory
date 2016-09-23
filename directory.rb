@@ -1,3 +1,31 @@
+def interactive_menu
+  students = []      # We declared the variable students outside the loop, so that it is available in several iterations of the loop
+  loop do
+    # 1. Print the menu bar and ask the user what to do
+    puts "What would you like to do?"
+    puts "--------------------------"
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"   # Because we'll be adding more options
+    # 2. Read the input and save it to a variable
+    selection = gets.chomp
+    # 3. do what the user has asked
+    case selection
+    when "1"
+      students = input_students
+    when "2"
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      Exit # This will cause the program to terminate
+    else
+      puts "I don't know what you meant, try again"
+    end
+  end
+end
+
+
 def input_students
   puts "Please enter the name of the first student you wish to add into our database"
   puts "*** To finish, just hit return without typing a new students name ***"
@@ -16,8 +44,8 @@ def input_students
               "August", "September", "October",
               "November", "December"]
     until @months.include? cohort
-    puts "You entered #{cohort}. Please enter a valid month."
-    cohort = gets.chomp.capitalize!
+    puts "You entered '#{cohort}'. Please enter a valid month."
+    cohort = gets.chomp.capitalize
     end
 
     puts "What is #{name2}'s main hobby?"
@@ -116,9 +144,9 @@ def print_footer(names)
   end
 end
 
-students = input_students
+# students = input_students
+
 # Nothing happens yet, until we call the methods!!!
-print_header
-print(students)
-print_cohort(students)
-print_footer(students)
+# print_cohort(students)
+
+interactive_menu
