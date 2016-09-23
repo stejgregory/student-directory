@@ -67,20 +67,28 @@ end
 
 
 def print(students)
-  count = 0
-  until count == students.length
-      count_and_name = "#{count+1}. #{students[count][:name]}"
-      cohort = "Cohort: #{students[count][:cohort]}"
-      hobby = "Hobby: #{students[count][:hobby]}"
-      country = "County of birth: #{students[count][:country]}"
-      height = "Height: #{students[count][:height]}"
+  if students == 0
+    puts "Your list of students is empty"
+  else
+    count = 0
+    until count == students.length
+        count_and_name = "#{count+1}. #{students[count][:name]}"
+        cohort = "Cohort: #{students[count][:cohort]}"
+        hobby = "Hobby: #{students[count][:hobby]}"
+        country = "County of birth: #{students[count][:country]}"
+        height = "Height: #{students[count][:height]}"
         puts count_and_name.center(30) + cohort.center(20) + hobby.center(20) + country.center(20) + height.center(20)
-      count +=1         #[count] in each array iteration calls it from the main array
+        count +=1         #[count] in each array iteration calls it from the main array
     end                 # We then ask for the specific part of the iteration.
+  end
+  puts ""
 end
 
 
 def print_cohort(students)
+  if students.count <= 0
+    puts "No cohorts to print either"
+  else
   @months.each do |month_to_list|
     puts "#{month_to_list} cohort:"
     puts "------------------------"
@@ -92,6 +100,7 @@ def print_cohort(students)
           country = "County of birth: #{students[:country]}"
           height = "Height: #{students[:height]}"
               puts name.center(30) + cohort.center(20) + hobby.center(20) + country.center(20) + height.center(20)
+        end
       end
     end
     puts ""
@@ -102,10 +111,8 @@ end
 def print_footer(names)
   if names.count == 1
     puts "Overall, we have #{names.count} great student"
-  elsif names.count > 1
+  else names.count > 1
     puts "Overall, we have #{names.count} great students"
-  elsif names.count == 0
-    puts "No great students here"
   end
 end
 
