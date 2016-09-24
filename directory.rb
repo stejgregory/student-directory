@@ -14,7 +14,8 @@ def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
-  puts "9. Exit"   # Because we'll be adding more options
+  puts "4. Load the list from sudents.csv"
+  puts "9. Exit"
   puts ""
 end
 
@@ -27,6 +28,8 @@ def process(selection)
       show_students
     when "3"
       save_students
+    when "4"
+      load_students
     when "9"
       Exit # HERE THE PROGRAM WILL TERMINATE
     else
@@ -34,27 +37,7 @@ def process(selection)
   end
 end
 
-
-def save_students
-  # open the file for writing
-  file = File.open("students.csv", "w")
-  # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student [:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
-  end
-  file.close
-end
-
-
-def show_students
-  print_header
-  print_students_list
-  print_footer
-end
-
-
+# ---------- 1 ----------
 def input_students
   puts "Please enter the name of the first student you wish to add into our database"
   puts "*** To finish, just hit return without typing a new students name ***"
@@ -108,11 +91,17 @@ def input_students
 end
 
 
+# ---------- 2 ----------
+def show_students
+  print_header
+  print_students_list
+  print_footer
+end
+
 def print_header
 puts "The students of Villains Academy"
 puts "--------------------------------"
 end
-
 
 def print_students_list
   if @students == 0
@@ -131,7 +120,6 @@ def print_students_list
   end
   puts ""
 end
-
 
 def print_cohort
   if @students.count <= 0
@@ -154,7 +142,6 @@ def print_cohort
   end
 end
 
-
 def print_footer
   if @students.count == 1
     puts "Overall, we have #{@students.count} great student"
@@ -163,6 +150,36 @@ def print_footer
   end
   puts ""
 end
+
+
+# ---------- 3 ----------
+def save_students
+  # open the file for writing
+  file = File.open("students.csv", "w")
+  # iterate over the array of students
+  @students.each do |student|
+    student_data = [student[:name], student [:cohort]]
+    csv_line = student_data.join(',')
+    file.puts csv_line
+  end
+  file.close
+  puts "Student list SAVED to students.csv"
+  puts ""
+end
+
+
+# ---------- 4 ----------
+def load_students
+  file = File.open("students.csv", "r")
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(',')
+    @students << {name: name, cohort: cohort.to_sym}
+  end
+  file.close
+  puts "Student list LOADED from student.csv"
+  puts ""
+end
+
 
 # Nothing happens yet, until we call the methods!!!
 # print_cohort(students)
