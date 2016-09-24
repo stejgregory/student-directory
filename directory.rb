@@ -45,11 +45,10 @@ def input_students
   puts "Please enter the name of the first student you wish to add into our database"
   puts "*** To finish, just hit return without typing a new students name ***"
   # Get the first students details
-  name = STDIN.gets.chomp
+  name = STDIN.gets.chomp.capitalize
   # While the name is not empty, repeat this code
   while !name.empty? do
-    name2 = name.split.map(&:capitalize)*' '
-    puts "Which 'month' cohort will #{name2} be enrolling on?"
+    puts "Which 'month' cohort will #{name} be enrolling on?"
     cohort = STDIN.gets.chomp.capitalize
     @months = ["January", "February", "March",
               "April", "May", "June", "July",
@@ -59,28 +58,27 @@ def input_students
     puts "You entered '#{cohort}'. Please enter a valid month."
     cohort = STDIN.gets.chomp.capitalize
     end
-    puts "What is #{name2}'s main hobby?"
+    puts "What is #{name}'s main hobby?"
     hobby = STDIN.gets.chomp.capitalize
     if hobby == ""
       hobby = "Not provided"
     end
-    puts "What country was #{name2} born in?"
+    puts "What country was #{name} born in?"
     country = STDIN.gets.chomp.capitalize
     if country == ""
       county = "Not Provided"
     end
-    puts "Last question, how tall is #{name2} in centimetres?"
+    puts "Last question, how tall is #{name} in centimetres?"
     height = STDIN.gets.chomp
     if height == ""
       height = "Not provided"
     end
     # Add the student hash AND ALL THE VARIABLES to the array!!!
-    @students << {
-      name: name2.to_sym,
-      cohort: cohort.to_sym,
-      hobby: hobby.to_sym,
-      country: country.to_sym,
-      height: height.to_sym}
+    @students << {name: name,
+                  cohort: cohort.to_sym,
+                  hobby: hobby,
+                  country: country,
+                  height: height}
     if @students.count == 1
       puts "Now we have #{@students.count} student"
     else
@@ -88,7 +86,7 @@ def input_students
     end
     puts "*** Who's next? ***"
     # Get another name from the user
-    name = STDIN.gets.chomp
+    name = STDIN.gets.chomp.capitalize
   end
   # No longer need to return students variable, we can access this @students
 end
@@ -140,7 +138,9 @@ def save_students
   file = File.open("students.csv", "w")
   # iterate over the array of students
   @students.each do |student|
-    student_data = [student[:name], student [:cohort]]
+    student_data = [student[:name], student [:cohort],
+                    student [:hobby], student [:country],
+                    student [:height]]
     csv_line = student_data.join(',')
     file.puts csv_line
   end
@@ -154,8 +154,12 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    name, cohort, hobby, country, height = line.chomp.split(',')
+    @students << {name: name,
+                  cohort: cohort.to_sym,
+                  hobby: hobby,
+                  country: country,
+                  height: height}
   end
   file.close
   puts "Student list LOADED from student.csv"
