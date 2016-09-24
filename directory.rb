@@ -167,6 +167,13 @@ def load_students(filename = "students.csv")
 end
 
 
+# DOESN'T WORK, AS ALL VARIABLES WOULD NEED TO BE PASSED IN
+# shovel_hash_to_students
+#  @students << {name: name, cohort: cohort.to_sym,
+#                hobby: hobby, country: country, height: height}
+#end
+
+
 # ---------- 5 ----------
 def print_cohort
   if @students.count <= 0
